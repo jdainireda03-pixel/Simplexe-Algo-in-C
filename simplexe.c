@@ -137,6 +137,48 @@ void solve (struct simplexe *s) {
     printf("Optimal table found.\n");
 }
 
+void print_solution(struct simplexe *s) {
+    printf("\nOptimal Solution:\n");
+    printf("================\n");
+    
+    // Array to store the values of original variables
+    double solution[MAX_VARS] = {0};
+    
+    // For each original variable (columns 0 to n-1)
+    for (int j = 0; j < s->n; j++) {
+        // Check if this column is a basic variable (has exactly one 1 and rest 0s)
+        int is_basic = 0;
+        int basic_row = -1;
+        int count_ones = 0;
+        int count_zeros = 0;
+        
+        // Check the column structure
+        for (int i = 0; i <= s->m; i++) {
+            if (s->tableau[i][j] == 1.0) {
+                count_ones++;
+                basic_row = i;
+            } else if (s->tableau[i][j] == 0.0) {
+                count_zeros++;
+            }
+        }
+        
+        // If column has exactly one 1 and rest are 0s, it's a basic variable
+        if (count_ones == 1 && count_zeros == s->m) {
+            is_basic = 1;
+            solution[j] = s->tableau[basic_row][s->n + s->m]; // RHS value
+        } else {
+            solution[j] = 0.0; // Non-basic variable = 0
+        }
+    }
+    
+    // Print the values
+    for (int i = 0; i < s->n; i++) {
+        printf("x%d = %.2f\n", i + 1, solution[i]);
+    }
+    
+    // Print the optimal objective function value (Z value)
+    printf("\nOptimal objective value (Z) = %.2f\n", s->tableau[s->m][s->n + s->m]);
+}
 
 
 int main () {
