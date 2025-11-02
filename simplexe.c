@@ -54,13 +54,13 @@ void print_tableau(struct simplexe *s) {
     printf("\n");
     for (int i=0; i <= s->m; i++) {
         if (i == s->m) {
-            printf("---------------------------- \n");
+            printf("-------------------------------------------\n");
         }
         for (int j=0; j <= s->m + s->n; j++) {
             if (j == s->m + s->n) {
                 printf(" | ");
             }
-            printf(" %.2f ", s->tableau[i][j]);
+            printf("   %.2f   ", s->tableau[i][j]);
         }
         printf("\n");
     }  
@@ -177,7 +177,7 @@ void print_solution(struct simplexe *s) {
     }
     
     // Print the optimal objective function value (Z value)
-    printf("\nOptimal objective value (Z) = %.2f\n", s->tableau[s->m][s->n + s->m]);
+    printf("\nOptimal objective value (Z) = %.2f\n", (s->tableau[s->m][s->n + s->m])*-1);
 }
 
 
