@@ -89,6 +89,7 @@ void inputproblem(struct simplexe *s) {
 
 //function to print it
 void print_tableau(struct simplexe *s) {
+    printf("NOTICE: Big M IS SET AS 10,000 \n");
     int rhs_col = (s->is_min == 0) ? (s->n + s->m) : (s->n + s->m + s->m);
     
     printf("\n");
