@@ -19,10 +19,10 @@ void inputproblem(struct simplexe *s) {
 
   printf("Is it a minimizing problem? (0 for max 1 for min) \n");
   scanf("%d", &s->is_min);
-
+  // les variables d'écart ?
   printf("Enter the number of constraints: ");
   scanf("%d", &s->m);
-
+  // donc c'est (x1, x2 etc)
   printf("Enter the number of original variables: ");
   scanf("%d", &s->n);
 
@@ -33,6 +33,7 @@ void inputproblem(struct simplexe *s) {
   } else {
     rhs_col = s->n + s->m + s->m; // original + surplus + artificial
   }
+  // NOTE: why?.
 
   // Initialize tableau to 0
   for (int i = 0; i <= s->m; i++) {
@@ -42,7 +43,7 @@ void inputproblem(struct simplexe *s) {
   }
 
   // Enter objective function coefficients
-  printf("Enter the coefficients of the target (equation econom): ");
+  printf("Enter the coefficients of the target (equation économique): ");
   for (int i = 0; i < s->n; i++) {
     scanf("%lf", &s->tableau[s->m][i]);
   }
@@ -98,7 +99,8 @@ void print_tableau(struct simplexe *s) {
   printf("\n");
   for (int i = 0; i <= s->m; i++) {
     if (i == s->m) {
-      printf("-------------------------------------------\n");
+      printf(
+          "|--------------------------------------------------------------|\n");
     }
     for (int j = 0; j <= rhs_col; j++) {
       if (j == rhs_col) {
