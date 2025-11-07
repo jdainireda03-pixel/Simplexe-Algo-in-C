@@ -1,7 +1,10 @@
 #include <stdio.h>
+
 #define MAX_SLACK 10
 #define MAX_VARS 10
 #define big_M 10000.0
+
+typedef enum { false = 0, true = 1 } bool;
 
 struct simplexe {
   int m;      // number of constraints
