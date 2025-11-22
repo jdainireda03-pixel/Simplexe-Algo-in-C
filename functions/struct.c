@@ -1,4 +1,4 @@
-//  IMPORTANT: do not remove the main stdio, because the other two files will be
+//  NOTE: do not remove the main stdio, because the other two files will be
 //  working with it.
 #include <stdio.h>
 #define MAX_SLACK 10

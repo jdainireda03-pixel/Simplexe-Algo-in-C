@@ -1,7 +1,8 @@
 #include "struct.c"
+
 void inputproblem(struct simplexe *s) {
 
-  printf("Is it a minimizing problem? (0 for max 1 for min) \n");
+  printf("Is it a minimizing problem? (0 for max 1 for min)\n");
   scanf("%d", &s->is_min);
   // les variables d'écart ?
   printf("Enter the number of constraints: ");
@@ -76,24 +77,78 @@ void inputproblem(struct simplexe *s) {
   }
 }
 
-// function to print it
+// function to print the problematic , or the solution given.
 void print_tableau(struct simplexe *s) {
   int rhs_col = (s->is_min == 0) ? (s->n + s->m) : (s->n + s->m + s->m);
 
   printf("\n");
-  for (int i = 0; i <= s->m; i++) {
-    if (i == s->m) {
-      printf(
-          "|--------------------------------------------------------------|\n");
+  printf("+");
+  for (int j = 0; j <= rhs_col; j++) {
+    printf("-----------+");
+    if (j == rhs_col - 1)
+      printf("---+");
+  }
+  printf("\n");
+
+  // Print header row with column numbers
+  printf("|");
+  for (int j = 0; j <= rhs_col; j++) {
+    if (j == rhs_col) {
+      printf("   RHS    |");
+    } else {
+      printf("   x%-3d   |", j + 1);
     }
+  }
+  printf("\n");
+
+  printf("+");
+  for (int j = 0; j <= rhs_col; j++) {
+    printf("-----------+");
+    if (j == rhs_col - 1)
+      printf("---+");
+  }
+  printf("\n");
+
+  for (int i = 0; i <= s->m; i++) {
+    printf("|");
+
+    // Print row label
+    if (i < s->m) {
+      printf(" C%-3d |", i + 1);
+    } else {
+      printf(" Obj  |");
+    }
+
+    // Print values
     for (int j = 0; j <= rhs_col; j++) {
       if (j == rhs_col) {
-        printf(" | ");
+        printf(" %8.2f |", s->tableau[i][j]);
+      } else {
+        printf(" %8.2f |", s->tableau[i][j]);
       }
-      printf("   %.2f   ", s->tableau[i][j]);
     }
     printf("\n");
+
+    // Print separator line
+    if (i == s->m - 1) {
+      printf("+");
+      for (int j = 0; j <= rhs_col; j++) {
+        printf("-----------+");
+        if (j == rhs_col - 1)
+          printf("---+");
+      }
+      printf("\n");
+    }
   }
+
+  // Print bottom border
+  printf("+");
+  for (int j = 0; j <= rhs_col; j++) {
+    printf("-----------+");
+    if (j == rhs_col - 1)
+      printf("---+");
+  }
+  printf("\n");
 }
 
 int isoptimal(struct simplexe *s) {
